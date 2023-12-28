@@ -9,7 +9,6 @@ export const getAllProducts: any = () => async (dispatch: any) => {
 
   try {
     const { data } = await API.get(ApiEndpoints.GET_ALL_PRODUCTS);
-    console.log(data.products);
 
     dispatch({
       type: ActionTypes.GET_ALL_PRODUCTS_SUCCESS,
@@ -22,3 +21,27 @@ export const getAllProducts: any = () => async (dispatch: any) => {
     });
   }
 };
+
+export const getProductsByCategory: any =
+  (category: string) => async (dispatch: any) => {
+    dispatch({
+      type: ActionTypes.GET__PRODUCTS_BY_CATEGORY_REQUEST,
+    });
+
+    try {
+      const { data } = await API.get(
+        `${ApiEndpoints.GET_ALL_PRODUCTS_BY_CATEGRORY}/${category}`
+      );
+
+      dispatch({
+        type: ActionTypes.GET__PRODUCTS_BY_CATEGORY_SUCCESS,
+        payload: data?.products,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ActionTypes.GET__PRODUCTS_BY_CATEGORY_FAILURE,
+        payload: error,
+      });
+      console.log("errrrr", error);
+    }
+  };

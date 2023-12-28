@@ -23,10 +23,7 @@ const Navbar: FC = () => {
       label: "Men",
       key: "men",
       children: [
-        {
-          label: "Men's Clothing",
-          key: "mens-clothing",
-        },
+
         {
           label: "Men's Shoes",
           key: "mens-shoes",
@@ -50,8 +47,8 @@ const Navbar: FC = () => {
           key: "womens-shoes",
         },
         {
-          label: "Women's Jewelry",
-          key: "womens-jewelry",
+          label: "Women's Jewellery",
+          key: "womens-jewellery",
         },
         {
           label: "Women's Watches",
@@ -69,11 +66,10 @@ const Navbar: FC = () => {
     <div className="bg-ecf0f1  flex justify-center">
       <Menu
         onClick={(item) => {
-          console.log(item.key);
           if (item.key === "") {
             navigate(`${RoutesConstant.HOME}`);
           } else {
-            navigate(`${RoutesConstant.PRODUCT}/${item.key}`);
+            navigate(`${RoutesConstant.CATEGORY}/${item.key}`);
           }
         }}
         className="w-full bg-inherit text-slate-900"

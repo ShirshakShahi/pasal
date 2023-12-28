@@ -34,6 +34,27 @@ export const productReducer = (state = initialState, action: any) => {
         isLoading: false,
         error: action.payload,
       };
+
+    case ActionTypes.GET__PRODUCTS_BY_CATEGORY_REQUEST:
+      return {
+        isLoading: true,
+        error: null,
+        products: null,
+      };
+    case ActionTypes.GET__PRODUCTS_BY_CATEGORY_SUCCESS:
+      return {
+        products: action.payload,
+        isLoading: false,
+        error: null,
+      };
+
+    case ActionTypes.GET__PRODUCTS_BY_CATEGORY_FAILURE:
+      return {
+        error: action.payload,
+        products: null,
+        isLoading: false,
+      };
+
     default:
       return state;
   }
