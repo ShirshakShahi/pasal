@@ -3,6 +3,7 @@ import { Menu } from "antd";
 import { FC, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesConstant } from "../../constants/routes_config";
+import Cart from "../cart/Cart";
 
 interface ItemInterface {
   label?: string | ReactNode;
@@ -23,7 +24,6 @@ const Navbar: FC = () => {
       label: "Men",
       key: "men",
       children: [
-
         {
           label: "Men's Shoes",
           key: "mens-shoes",
@@ -63,7 +63,7 @@ const Navbar: FC = () => {
   ];
 
   return (
-    <div className="bg-ecf0f1  flex justify-center">
+    <div className=" w-[99%] flex justify-center ">
       <Menu
         onClick={(item) => {
           if (item.key === "") {
@@ -76,6 +76,7 @@ const Navbar: FC = () => {
         items={items}
         mode="horizontal"
       />
+      <Cart />
     </div>
   );
 };

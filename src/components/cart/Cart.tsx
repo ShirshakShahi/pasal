@@ -1,14 +1,26 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge } from "antd";
-import React from "react";
+import { Badge, Drawer } from "antd";
+import React, { useState } from "react";
 
 const Cart: React.FC = () => {
+  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
+
   return (
-    <>
-      <Badge className="text-xl flex w-8 justify-center" count={30}>
-        <ShoppingCartOutlined className="w-12 flex bg-red-300" />
+    <div>
+      <Badge
+        className=" text-[25px] cursor-pointer mt-2"
+        size="small"
+        count={5}
+      >
+        <ShoppingCartOutlined onClick={() => setDrawerIsOpen(true)} />
       </Badge>
-    </>
+      <Drawer
+        visible={drawerIsOpen}
+        onClose={() => setDrawerIsOpen(false)}
+      >
+        
+      </Drawer>
+    </div>
   );
 };
 
