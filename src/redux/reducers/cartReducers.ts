@@ -1,28 +1,5 @@
 import ActionTypes from "../../constants/action_types";
 
-// interface Product {
-//   id?: number;
-//   title?: string;
-//   price?: number;
-//   quantity?: number;
-//   total?: number;
-//   discountPercentage?: number;
-//   discountedPrice?: number;
-//   thumbnail?: string;
-// }
-
-// export interface cartStateInterface {
-//   cartItems: {
-//     cartId?: number;
-//     products: Product[];
-//     totalQuantity: number;
-//     totalProducts: number;
-//   };
-//   isLoading: boolean;
-//   error?: any;
-// }
-
-
 interface Product {
   id?: number;
   title?: string;
@@ -45,11 +22,9 @@ export interface cartStateInterface {
   error?: any;
 }
 
-
-
 const initialState: cartStateInterface = {
   cartItems: {
-    cartId:0,
+    cartId: 0,
     products: [],
     totalQuantity: 0,
     totalProducts: 0,
@@ -82,6 +57,20 @@ export const cartReducers = (state = initialState, action: any) => {
           products: [],
           totalQuantity: 0,
           totalProducts: 0,
+        },
+      };
+
+    case ActionTypes.UPDATE_CART_QUANTITY:
+      const { id, qty, price } = action.payload;
+      return {
+        ...state,
+        cartItems: {
+          ...state.cartItems,
+          products: state.cartItems?.products.map((product) =>
+            product.id === id
+              ? { ...product, quantity: qty, total: qty * price }
+              : product
+          ),
         },
       };
 

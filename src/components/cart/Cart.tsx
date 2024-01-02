@@ -1,8 +1,8 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge, Button, Modal, Table, Typography } from "antd";
+import { Badge, Button, InputNumber, Modal, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "../../redux/actions/cartActions";
+import { getCart, updateCartQuantity } from "../../redux/actions/cartActions";
 import { cartStateInterface } from "../../redux/reducers/cartReducers";
 import Error from "../Error";
 import Spinner from "../Spinner";
@@ -42,11 +42,25 @@ const Cart: React.FC = () => {
       title: "Quantity",
       dataIndex: "quantity",
       key: "quantity",
+      render: (value: any, record: any) => (
+        <InputNumber
+          min={0}
+          defaultValue={value}
+          step={1}
+          onChange={(qty) => {
+            dispatch(updateCartQuantity(record.id, qty, record.price));
+          }}
+        ></InputNumber>
+      ),
     },
     {
       title: "Total",
       dataIndex: "total",
       key: "total",
+      render: (_: any, record: any) => {
+        // Calculate total dynamically based on quantity and price
+        return record.quantity * record.price;
+      },
     },
   ];
 
@@ -68,7 +82,7 @@ const Cart: React.FC = () => {
       <Modal
         title={
           <Typography.Title className="text-center">
-            {`Your Cart (${cartItems?.products.length} items)`}
+            {`Your Cart (${cartItems?.products?.length} items)`}
           </Typography.Title>
         }
         open={isModalOpen}
@@ -86,9 +100,10 @@ const Cart: React.FC = () => {
         <Table
           pagination={false}
           columns={columns}
-          dataSource={cartItems?.products.map((item: any) => ({
+          dataSource={cartItems?.products?.map((item: any) => ({
             ...item,
             key: item.id,
+            total: item.quantity * item.price, // Ca
           }))}
           footer={(data) => {
             const total = data.reduce((pre: any, current: any) => {

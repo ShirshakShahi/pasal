@@ -24,3 +24,11 @@ export const getCart: any = () => async (dispatch: any) => {
     });
   }
 };
+
+export const updateCartQuantity: any =
+  (id: number, qty: number, price: number) => (dispatch: any) => {
+    dispatch({
+      type: ActionTypes.UPDATE_CART_QUANTITY,
+      payload: { id, qty, price },
+    });
+  };
