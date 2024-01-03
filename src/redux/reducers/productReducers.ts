@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { IProducts } from "../../commonInterfaces";
 import ActionTypes from "../../constants/action_types";
 
@@ -49,6 +50,7 @@ export const productReducer = (state = initialState, action: any) => {
       };
 
     case ActionTypes.GET__PRODUCTS_BY_CATEGORY_FAILURE:
+      message.error("something went wrong", 1000);
       return {
         error: action.payload,
         products: null,

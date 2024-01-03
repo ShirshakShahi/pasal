@@ -62,10 +62,6 @@ const Cart: React.FC = () => {
     },
   ];
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-
   return error ? (
     <Error />
   ) : (
@@ -88,6 +84,7 @@ const Cart: React.FC = () => {
         onCancel={handleCancel}
         centered
         width={1000}
+        maskStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         footer={(_, { CancelBtn }) => (
           <>
             <CancelBtn />
@@ -107,7 +104,11 @@ const Cart: React.FC = () => {
             const total = data.reduce((pre: any, current: any) => {
               return pre + current.total;
             }, 0);
-            return <div>Grand010 Total: ${total}</div>;
+            return (
+              <div>
+                <strong>Grand Total : </strong>${total}
+              </div>
+            );
           }}
         />
       </Modal>

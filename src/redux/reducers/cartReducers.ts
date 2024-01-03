@@ -1,3 +1,4 @@
+import { message } from "antd";
 import ActionTypes from "../../constants/action_types";
 
 interface Product {
@@ -97,17 +98,21 @@ export const cartReducers = (state = initialState, action: any) => {
             products: [...state.cartItems?.products, newItem],
           },
         };
+      } else {
+        return {
+          ...state,
+          isLoading: false,
+          cartItems: {
+            ...state.cartItems,
+            produts: state.cartItems.products.map((x) =>
+              x.id === existingProduct.id ? newItem : x
+            ),
+          },
+        };
       }
 
-      console.log(existingProduct);
-
-      return {
-        ...state,
-        isLoading: false,
-        cartItems: action.payload,
-      };
-
     case ActionTypes.ADD_TO_CART_FAILURE:
+      message.error("something went wrong", 0);
       return {
         ...state,
         isLoading: false,
