@@ -17,7 +17,7 @@ export interface cartStateInterface {
     products: Product[];
     totalQuantity: number;
     totalProducts: number;
-  } | null;
+  };
   isLoading: boolean;
   error?: any;
 }
@@ -80,24 +80,25 @@ export const cartReducers = (state = initialState, action: any) => {
         isLoading: true,
         error: null,
       };
+
     case ActionTypes.ADD_TO_CART_SUCCESS:
       const newItem = action.payload;
 
-      // const { id: itemId, total, title, price: itemPrice } = item;
+      const existingProduct = state.cartItems?.products?.find(
+        (product) => product.id === newItem.id
+      );
 
-      console.log("new itemmmmmmmmmmmmm", newItem);
+      if (!existingProduct) {
+        return {
+          ...state,
+          isLoading: false,
+          cartItems: {
+            ...state.cartItems,
+            products: [...state.cartItems?.products, newItem],
+          },
+        };
+      }
 
-      const existingProduct = state.cartItems?.products?.find((product) => {
-        console.log("product idddddddddd", product.id);
-
-        // Ensure that product.id and newItem.id are both defined before comparing
-        if (product.id !== undefined && newItem.id !== undefined) {
-          return product.id === newItem.id;
-        }
-
-        // Handle the case where either product.id or newItem.id is undefined
-        return false;
-      });
       console.log(existingProduct);
 
       return {
@@ -105,6 +106,7 @@ export const cartReducers = (state = initialState, action: any) => {
         isLoading: false,
         cartItems: action.payload,
       };
+
     case ActionTypes.ADD_TO_CART_FAILURE:
       return {
         ...state,

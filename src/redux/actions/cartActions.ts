@@ -53,6 +53,8 @@ export const addToCart: any = (id: number) => async (dispatch: any) => {
 
     const refinedData = data.products[0];
 
+    console.log("refined dataaaaaa", refinedData);
+
     dispatch({
       type: ActionTypes.ADD_TO_CART_SUCCESS,
       payload: refinedData,

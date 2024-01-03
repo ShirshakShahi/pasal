@@ -13,6 +13,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
   const dispatch = useDispatch();
 
   const addToCartHandler = (id: number) => {
+    console.log("id innnnnnnnn handlerrrrrrrrrrrrrrr", id);
     dispatch(addToCart(id));
   };
 

@@ -57,7 +57,7 @@ const Cart: React.FC = () => {
       key: "total",
       render: (_: any, record: any) => {
         // Calculate total dynamically based on quantity and price
-        return record.quantity * record.price;
+        return `$${record.quantity * record.price}`;
       },
     },
   ];
@@ -107,7 +107,7 @@ const Cart: React.FC = () => {
             const total = data.reduce((pre: any, current: any) => {
               return pre + current.total;
             }, 0);
-            return <div>Total: ${total}</div>;
+            return <div>Grand010 Total: ${total}</div>;
           }}
         />
       </Modal>
