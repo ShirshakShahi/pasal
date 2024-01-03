@@ -2,12 +2,20 @@ import React from "react";
 import { CarryOutFilled } from "@ant-design/icons";
 import { IProducts } from "../../commonInterfaces";
 import { Badge, Card, Image, List, Typography } from "antd";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions/cartActions";
 
 interface ProductItemProps {
   products: IProducts[];
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (id: number) => {
+    dispatch(addToCart(id));
+  };
+
   return (
     <List
       grid={{ column: 3 }}
@@ -25,17 +33,21 @@ const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
             <Card
               title={product.title}
               key={index}
+              id={`${product.id}`}
               className="w-[25rem] m-4 h-[30rem"
               cover={
                 <Image
                   className="itemCardImage h-12"
                   src={`${product.thumbnail}`}
-                  alt="random pic"
+                  alt={`${product.title}`}
                 />
               }
               bordered
               actions={[
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  onClick={() => addToCartHandler(product.id)}
+                >
                   {" "}
                   <CarryOutFilled /> Add to cart
                 </button>,

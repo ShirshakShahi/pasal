@@ -75,11 +75,42 @@ export const cartReducers = (state = initialState, action: any) => {
       };
 
     case ActionTypes.ADD_TO_CART_REQUEST:
-      return {};
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
     case ActionTypes.ADD_TO_CART_SUCCESS:
-      return {};
+      const newItem = action.payload;
+
+      // const { id: itemId, total, title, price: itemPrice } = item;
+
+      console.log("new itemmmmmmmmmmmmm", newItem);
+
+      const existingProduct = state.cartItems?.products?.find((product) => {
+        console.log("product idddddddddd", product.id);
+
+        // Ensure that product.id and newItem.id are both defined before comparing
+        if (product.id !== undefined && newItem.id !== undefined) {
+          return product.id === newItem.id;
+        }
+
+        // Handle the case where either product.id or newItem.id is undefined
+        return false;
+      });
+      console.log(existingProduct);
+
+      return {
+        ...state,
+        isLoading: false,
+        cartItems: action.payload,
+      };
     case ActionTypes.ADD_TO_CART_FAILURE:
-      return {};
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
 
     default:
       return state;

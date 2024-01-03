@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart, updateCartQuantity } from "../../redux/actions/cartActions";
 import { cartStateInterface } from "../../redux/reducers/cartReducers";
 import Error from "../Error";
-import Spinner from "../Spinner";
 
 const Cart: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -13,7 +12,6 @@ const Cart: React.FC = () => {
   const {
     cartItems = { products: [], totalQuantity: 0, totalProducts: 0 },
     error,
-    isLoading,
   } = useSelector((state: { carts: cartStateInterface }) => state.carts);
 
   useEffect(() => {
@@ -64,9 +62,9 @@ const Cart: React.FC = () => {
     },
   ];
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
 
   return error ? (
     <Error />

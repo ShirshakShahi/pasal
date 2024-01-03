@@ -10,8 +10,6 @@ export const getCart: any = () => async (dispatch: any) => {
   try {
     const { data } = await API.get(ApiEndpoints.GET_CART);
 
-    console.log("data.productsssssssssssssss", data);
-
     dispatch({
       type: ActionTypes.GET_CART_SUCCESS,
       payload: data,
@@ -32,3 +30,37 @@ export const updateCartQuantity: any =
       payload: { id, qty, price },
     });
   };
+
+export const addToCart: any = (id: number) => async (dispatch: any) => {
+  dispatch({
+    type: ActionTypes.ADD_TO_CART_REQUEST,
+  });
+
+  try {
+    const { data } = await API.post(
+      ApiEndpoints.ADD_TO_CART,
+
+      {
+        userId: 1,
+        products: [
+          {
+            id,
+            quantity: 1,
+          },
+        ],
+      }
+    );
+
+    const refinedData = data.products[0];
+
+    dispatch({
+      type: ActionTypes.ADD_TO_CART_SUCCESS,
+      payload: refinedData,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: ActionTypes.ADD_TO_CART_FAILURE,
+      payload: error?.message,
+    });
+  }
+};
