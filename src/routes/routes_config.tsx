@@ -8,6 +8,7 @@ const ProductListing = lazy(
 );
 const HomePage = lazy(() => import("../pages/HomePage"));
 const Filter = lazy(() => import("../components/Filter"));
+const Checkout = lazy(() => import("../components/cart/Checkout"));
 
 const RoutesConfig: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const RoutesConfig: React.FC = () => {
               path={`${RoutesConstant.CATEGORY}/:category`}
               element={<Filter />}
             />
+            <Route path={RoutesConstant.CHECKOUT} element={<Checkout />} />
           </Routes>
         </Suspense>
       </Router>

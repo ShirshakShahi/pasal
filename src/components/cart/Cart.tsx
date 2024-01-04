@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart, updateCartQuantity } from "../../redux/actions/cartActions";
 import { cartStateInterface } from "../../redux/reducers/cartReducers";
 import Error from "../Error";
+import { useNavigate } from "react-router-dom";
+import { RoutesConstant } from "../../constants/routes_config";
 
 const Cart: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     cartItems = { products: [], totalQuantity: 0, totalProducts: 0 },
     error,
@@ -88,7 +91,14 @@ const Cart: React.FC = () => {
         footer={(_, { CancelBtn }) => (
           <>
             <CancelBtn />
-            <Button>OK</Button>
+            <Button
+              onClick={() => {
+                setIsModalOpen(false);
+                navigate(RoutesConstant.CHECKOUT);
+              }}
+            >
+              OK
+            </Button>
           </>
         )}
       >
