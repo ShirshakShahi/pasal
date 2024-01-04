@@ -14,7 +14,7 @@ const Input: FC<InputProps> = ({
 }) => {
   return (
     <input
-      className={`h-8 w-[55%] border-none border-zinc-900 rounded-lg ${className}`}
+      className={`h-8 w-[55%] pl-2 border-none border-zinc-900 rounded-lg focus:outline-none ${className}`}
       type={type}
       placeholder={placeholder}
       {...props}

@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import Input from "../Input";
-import { Button } from "antd";
+import { CheckoutInput, checkoutInput } from "../../schema/checkout";
+import { message } from "antd";
 
 const Checkout: React.FC = () => {
-  interface Data {
-    email: string;
-    city: string;
-    streetNo: string;
-  }
-
-  const [formData, setFormData] = useState<Data>({
+  const [formData, setFormData] = useState<CheckoutInput>({
     email: "",
     city: "",
     streetNo: "",
@@ -17,10 +12,28 @@ const Checkout: React.FC = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    const validationResult = checkoutInput.safeParse(formData);
+
+    if (validationResult.success) {
+      const validatedData = validationResult.data;
+      console.log("Form data:", validatedData);
+      setFormData({
+        email: "",
+        city: "",
+        streetNo: "",
+      });
+    } else {
+      validationResult.error.errors.forEach((error) => {
+        const errorMessage = error.message;
+        if (errorMessage) {
+          message.error(errorMessage);
+        }
+      });
+    }
   };
+
   return (
-    <div className="flex justify-center align-center h-[90vh]">
+    <div className="flex justify-center items-center h-[684px] bg-slate-800">
       <div className="h-[500px] w-[500px] bg-slate-900 rounded-xl">
         <div className=" flex justify-center h-28 items-center">
           <strong className="text-white text-3xl">CHECKOUT</strong>
@@ -28,7 +41,7 @@ const Checkout: React.FC = () => {
         <form onSubmit={submitHandler}>
           <div className="flex justify-center items-center  h-[50px]">
             <Input
-              className="focus:text-red-500 focus:outline-none"
+              className="focus:text-red-500"
               type="text"
               placeholder="enter your email here"
               value={formData.email}
@@ -39,7 +52,7 @@ const Checkout: React.FC = () => {
           </div>
           <div className="flex justify-center items-center h-[50px]">
             <Input
-              className=" focus:text-pink-500 focus:outline-none"
+              className=" focus:text-pink-500 "
               type="text"
               placeholder="enter your city here"
               value={formData.city}
@@ -50,7 +63,7 @@ const Checkout: React.FC = () => {
           </div>
           <div className="flex justify-center items-center h-[50px]">
             <Input
-              className=" focus:text-green-500 focus:outline-none"
+              className=" focus:text-green-500"
               type="text"
               placeholder="enter your street number here"
               value={formData.streetNo}
@@ -67,9 +80,9 @@ const Checkout: React.FC = () => {
             </div>
           </div>
           <div className="flex justify-center mt-12">
-            <Button className=" bg-blue-600 rounded-xl border-none w-[55%]">
+            <button className=" bg-blue-600 rounded-xl border-none h-8 w-[55%] hover:bg-blue-400">
               <strong className="text-white">PAY</strong>
-            </Button>
+            </button>
           </div>
         </form>
       </div>
