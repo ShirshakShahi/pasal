@@ -63,7 +63,7 @@ const Navbar: FC = () => {
   ];
 
   return (
-    <div className=" w-[99%] flex justify-center ">
+    <div className=" w-[99%] flex justify-center">
       <Menu
         onClick={(item) => {
           if (item.key === "") {
@@ -72,7 +72,7 @@ const Navbar: FC = () => {
             navigate(`${RoutesConstant.CATEGORY}/${item.key}`);
           }
         }}
-        className="w-full bg-inherit text-slate-900"
+        className="w-full bg-inherit text-black"
         items={items}
         mode="horizontal"
       />

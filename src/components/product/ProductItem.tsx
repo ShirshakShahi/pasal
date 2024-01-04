@@ -19,12 +19,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
   return (
     <List
       grid={{ column: 3 }}
-      className="bg-ecf0f1"
+      className="bg-slate-800"
       dataSource={Array.isArray(products) ? products : []}
       renderItem={(product: IProducts, index: number) => {
         return (
           <Badge.Ribbon
-            // className="mr-[6rem] w-auto"
             className="bg-ecf0f1 flex mr-[6rem] w-auto"
             color="red"
             text={`${product.discountPercentage}`}
@@ -34,10 +33,12 @@ const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
               title={product.title}
               key={index}
               id={`${product.id}`}
-              className="w-[25rem] m-4 h-[30rem"
+              className="w-[25rem] m-4 "
               cover={
                 <Image
-                  className="itemCardImage h-12"
+                  style={{
+                    height: "200px",
+                  }}
                   src={`${product.thumbnail}`}
                   alt={`${product.title}`}
                 />
@@ -70,7 +71,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
                     {product.description}
                   </Typography.Paragraph>
                 }
-              ></Card.Meta>
+              />
             </Card>
           </Badge.Ribbon>
         );
