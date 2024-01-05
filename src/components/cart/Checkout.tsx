@@ -22,6 +22,7 @@ const Checkout: React.FC = () => {
     if (validationResult.success) {
       const validatedData = validationResult.data;
       console.log("Form data:", validatedData);
+      message.success(`price paid $${totalPrice} successfully`);
       setFormData({
         email: "",
         city: "",

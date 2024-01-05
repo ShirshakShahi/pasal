@@ -12,8 +12,11 @@ const ProductListing = () => {
     (state: { products: productStateInterface }) => state.products
   );
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
+    // Check if products are already available in the store
+    if (!products.length) {
+      dispatch(getAllProducts());
+    }
+  }, [dispatch, products]);
 
   if (error) {
     return <Error />;
