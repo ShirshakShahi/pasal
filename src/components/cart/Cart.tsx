@@ -94,7 +94,14 @@ const Cart: React.FC = () => {
             <Button
               onClick={() => {
                 setIsModalOpen(false);
-                navigate(RoutesConstant.CHECKOUT);
+                navigate(RoutesConstant.CHECKOUT, {
+                  state: {
+                    totalPrice: cartItems.products.reduce(
+                      (acc, item: any) => acc + item.total,
+                      0
+                    ),
+                  },
+                });
               }}
             >
               OK

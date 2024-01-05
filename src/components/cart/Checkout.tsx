@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import Input from "../Input";
 import { CheckoutInput, checkoutInput } from "../../schema/checkout";
 import { message } from "antd";
+import { useLocation } from "react-router-dom";
 
 const Checkout: React.FC = () => {
+  const location = useLocation();
+
+  const { totalPrice } = location.state;
+
   const [formData, setFormData] = useState<CheckoutInput>({
     email: "",
     city: "",
@@ -75,7 +80,7 @@ const Checkout: React.FC = () => {
           <div className="mt-9 flex justify-center ">
             <div className="w-[55%] flex justify-start">
               <span className="text-white font-semibold">
-                Your total will be $ {99}
+                Your total will be $ {totalPrice}
               </span>
             </div>
           </div>
